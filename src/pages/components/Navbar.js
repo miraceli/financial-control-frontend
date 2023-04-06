@@ -4,6 +4,7 @@ import "./layout/Navbar.css";
 import logo from "./img/logo-removebg.png";
 
 export default class Navbar extends React.Component {
+
   render() {
     return (
       <div className="nav-bar-container-light">

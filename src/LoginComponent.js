@@ -4,12 +4,13 @@ import React from "react";
 // import UserExpense from "./UserExpense";
 // import UserAccount from "./UserAccount";
 import UserHome from "./UserHome";
+import Footer from "./pages/components/Footer";
 
 
 export default class LoginComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { username: "", password: "" };
+    this.state = { username: "", password: "" , erroLogin: null };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,11 +43,16 @@ export default class LoginComponent extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         localStorage.setItem("token", data.token);
-        this.setState({ token: data.token });
+        this.setState({ token: data.token, erroLogin: null });
       })
+      .catch(() => {
+        this.setState({
+          erroLogin: "Ocorreu um erro de conexão com o servidor.",
+        });
+      });
     event.preventDefault();
   }
-
+  
   logout() {
     localStorage.removeItem("token");
     this.setState({ token: null });
@@ -54,8 +60,15 @@ export default class LoginComponent extends React.Component {
     window.location.reload();
   }
 
+  renderLogoutButton = () => {
+    return (
+      <button onClick={() => this.logout()}>Logout</button>
+    );
+  }
+
   render() {
     var token = localStorage.getItem("token");
+    
 
     if (!token || token==='undefined')
       return (
@@ -107,6 +120,7 @@ export default class LoginComponent extends React.Component {
                             value="Submit"
                             className="btn btn-pill text-white btn-block btn-primary"
                           />
+                          {this.state.erroConexao && <p>Ocorreu um erro de conexão com o servidor.</p>}
                           <span className="d-block text-center my-4 text-muted">
                             Siga-me nas redes sociais
                           </span>
@@ -161,7 +175,6 @@ export default class LoginComponent extends React.Component {
         );
       else{
         return (
-          <>
             <div>
               <UserHome />
               {/* <UserIncome />
@@ -169,10 +182,12 @@ export default class LoginComponent extends React.Component {
               <UserAccount />  */}
               {/* <App /> */}
               <button onClick={() => this.logout()}>Logout</button>
+              <Footer />
             </div>
-          </>
         )
       }
     }
   }
 }
+
+

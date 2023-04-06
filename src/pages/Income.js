@@ -26,7 +26,7 @@ export default class UserIncome extends React.Component {
 
       return (
         <div>
-          {/* <IncomeComponent incomeName={'Meus recebimentos'} /> */}
+          {/* <IncomeComponent incomeName={'Meus recebimentos'} />  */}
           {incomesApi.map((income) => (
             <IncomeComponent
               key={income.id}

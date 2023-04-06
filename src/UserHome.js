@@ -3,8 +3,9 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Home from "./pages/Home";
 import Income from "./pages/Income";
+import Expense from "./pages/Expense";
+import Account from "./pages/Account";
 import Navbar from "./pages/components/Navbar";
-import Footer from "./pages/components/Footer";
 
 export default class App extends React.Component {
   state = {loading: true };
@@ -38,8 +39,14 @@ export default class App extends React.Component {
           <Route exact path="/income" element={<Income />}>
             {" "}
           </Route>
+          <Route exact path="/expense" element={<Expense />}>
+            {" "}
+          </Route>
+          <Route exact path="/account" element={<Account />}>
+            {" "}
+          </Route>
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </Router>
     );
   }
